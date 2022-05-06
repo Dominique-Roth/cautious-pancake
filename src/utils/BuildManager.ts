@@ -31,7 +31,7 @@ export function handleCreepState() {
 }
 
 function handleCreepBuild() {
-  if (getMainSpawn().spawning) return console.log("\n\n\n\nSPAWNING!!!\n\n\n\n");
+  if (getMainSpawn().spawning) return;
   console.log("Trying to build: universal");
   if (roleUniversal.handleAutoBuild()) return;
   console.log("Trying to build: miner2");
@@ -60,28 +60,37 @@ export function handleStructureAutoBuild(room: Room) {
 
 export function handleRoadBuilding(room: Room) {
   if (!(getMainController().level === 3 && Memory.controllerLevelLastTick !== getMainController().level)) return;
-  const mainPath = getMainController().pos.findPathTo(Game.spawns.Spawn1.room.find(FIND_SOURCES)[0]);
-  if (!mainPath[mainPath.length * 0.5]) return;
-  getMainRoom().createFlag(mainPath[mainPath.length * 0.5].x, mainPath[mainPath.length * 0.5].y, "mainFlag");
-  const pathSpawnToFlag = Game.spawns.Spawn1.pos.findPathTo(getMainRoom().find(FIND_FLAGS)[0]);
-  for (const element of pathSpawnToFlag) {
-    getMainRoom().createConstructionSite(element.x, element.y, STRUCTURE_ROAD);
-  }
-  const pathControllerToFlag = getMainController().pos.findPathTo(getMainRoom().find(FIND_FLAGS)[0]);
-  for (const element of pathControllerToFlag) {
-    getMainRoom().createConstructionSite(element.x, element.y, STRUCTURE_ROAD);
-  }
-
-  const pathRessourceOneToFlag = getMainRoom().find(FIND_FLAGS)[0].pos.findPathTo(getMainRoom().find(FIND_SOURCES)[0]);
-  for (let i = 0; i < pathRessourceOneToFlag.length; i++) {
-    if (i == pathRessourceOneToFlag.length - 1) break;
-    getMainRoom().createConstructionSite(pathRessourceOneToFlag[i].x, pathRessourceOneToFlag[i].y, STRUCTURE_ROAD);
-  }
-
-  const pathRessourceTwoToFlag = getMainRoom().find(FIND_FLAGS)[0].pos.findPathTo(getMainRoom().find(FIND_SOURCES)[1]);
-  for (let i = 0; i < pathRessourceTwoToFlag.length; i++) {
-    if (i == pathRessourceTwoToFlag.length - 1) break;
-    getMainRoom().createConstructionSite(pathRessourceTwoToFlag[i].x, pathRessourceTwoToFlag[i].y, STRUCTURE_ROAD);
+  if (!Memory.pathsBuilt)
+    Memory.pathsBuilt = 0;
+  if (Memory.pathsBuilt === 0) {
+    const mainPath = getMainController().pos.findPathTo(Game.spawns.Spawn1.room.find(FIND_SOURCES)[0]);
+    if (!mainPath[mainPath.length * 0.5]) return;
+    getMainRoom().createFlag(mainPath[mainPath.length * 0.5].x, mainPath[mainPath.length * 0.5].y, "mainFlag");
+    const pathSpawnToFlag = Game.spawns.Spawn1.pos.findPathTo(getMainRoom().find(FIND_FLAGS)[0]);
+    for (const element of pathSpawnToFlag) {
+      getMainRoom().createConstructionSite(element.x, element.y, STRUCTURE_ROAD);
+    }
+    Memory.pathsBuilt = Memory.pathsBuilt + 1;
+  } else if (Memory.pathsBuilt === 1) {
+    const pathControllerToFlag = getMainController().pos.findPathTo(getMainRoom().find(FIND_FLAGS)[0]);
+    for (const element of pathControllerToFlag) {
+      getMainRoom().createConstructionSite(element.x, element.y, STRUCTURE_ROAD);
+    }
+    Memory.pathsBuilt = Memory.pathsBuilt + 1;
+  } else if (Memory.pathsBuilt === 2) {
+    const pathRessourceOneToFlag = getMainRoom().find(FIND_FLAGS)[0].pos.findPathTo(getMainRoom().find(FIND_SOURCES)[0]);
+    for (let i = 0; i < pathRessourceOneToFlag.length; i++) {
+      if (i == pathRessourceOneToFlag.length - 1) break;
+      getMainRoom().createConstructionSite(pathRessourceOneToFlag[i].x, pathRessourceOneToFlag[i].y, STRUCTURE_ROAD);
+    }
+    Memory.pathsBuilt = Memory.pathsBuilt + 1;
+  } else if (Memory.pathsBuilt === 3) {
+    const pathRessourceTwoToFlag = getMainRoom().find(FIND_FLAGS)[0].pos.findPathTo(getMainRoom().find(FIND_SOURCES)[1]);
+    for (let i = 0; i < pathRessourceTwoToFlag.length; i++) {
+      if (i == pathRessourceTwoToFlag.length - 1) break;
+      getMainRoom().createConstructionSite(pathRessourceTwoToFlag[i].x, pathRessourceTwoToFlag[i].y, STRUCTURE_ROAD);
+    }
+    Memory.pathsBuilt = Memory.pathsBuilt + 1;
   }
   Memory.streetsBuilt = true;
   return true;

@@ -44,6 +44,7 @@ declare global {
     towersBuilt: boolean,
     streetsBuilt: boolean,
     controllerLevelLastTick: number,
+    pathsBuilt: number,
 
     // Max Creep Role Amounts
     maxUniversalCreepsAmount: number,
