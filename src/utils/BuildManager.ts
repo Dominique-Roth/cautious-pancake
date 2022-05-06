@@ -117,8 +117,8 @@ export function buildBase(room: Room) {
       currentPositionX >= roomWidth ||
       currentPositionY < 0 ||
       currentPositionY >= roomHeight ||
-      Math.abs(currentPositionX - spawnPosition.x) > Memory.controllerLevelLastTick ||
-      Math.abs(currentPositionY - spawnPosition.y) > Memory.controllerLevelLastTick
+      Math.abs(currentPositionX - spawnPosition.x) > Memory.controllerLevelLastTick * 2 ||
+      Math.abs(currentPositionY - spawnPosition.y) > Memory.controllerLevelLastTick * 2
     )
       continue;
     const neighbourOne = new RoomPosition(currentPositionX + 1, currentPositionY, currentPosition.roomName);
