@@ -1,5 +1,5 @@
-import { pickupNearestRessource } from "./utils.carry";
-import { mineNextEnergyResource, minersAlive } from "./utils.mine";
+import {pickupNearestRessource} from "./utils.carry";
+import {mineNextEnergyResource, minersAlive} from "./utils.mine";
 
 export function upgradeControllerDirectly(creep: Creep) {
   if (!creep.memory.upgrading
@@ -10,9 +10,9 @@ export function upgradeControllerDirectly(creep: Creep) {
     && !creep.memory.working) {
     const upgradeResult = creep.upgradeController(<StructureController>creep.room.controller);
     if (upgradeResult == ERR_NOT_IN_RANGE) {
-      creep.moveTo(<StructureController>creep.room.controller,
-        { visualizePathStyle: { stroke: "#ffff00" } });
-      return true;
+      creep.moveTo(creep.room.controller as StructureController, {visualizePathStyle: {stroke: "#ffff00"}});
+    } else if (upgradeResult === ERR_NOT_ENOUGH_RESOURCES) {
+      creep.memory.upgrading = false;
     }
   } else {
     if (minersAlive()) {
@@ -20,11 +20,9 @@ export function upgradeControllerDirectly(creep: Creep) {
       if (creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
         creep.memory.upgrading = true;
       }
-      return true;
     } else {
       mineNextEnergyResource(creep);
-      return true;
     }
   }
-  return false;
+  return true;
 }

@@ -9,25 +9,25 @@ export namespace roleDefenderRanged {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel3):
-        global.maxRangedDefenderCreepsAmount = 3;
+        Memory.maxRangedDefenderCreepsAmount = 3;
         break;
       case (colonyGoals.controllerLevel4):
-        global.maxRangedDefenderCreepsAmount = 4;
+        Memory.maxRangedDefenderCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel5):
-        global.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 5;
         break;
       case (colonyGoals.controllerLevel6):
-        global.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 5;
         break;
       case (colonyGoals.controllerLevel7):
-        global.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 5;
         break;
       case (colonyGoals.controllerLevel8):
-        global.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 5;
         break;
       default:
-        global.maxRangedDefenderCreepsAmount = 0;
+        Memory.maxRangedDefenderCreepsAmount = 0;
         break;
     }
   }
@@ -35,7 +35,7 @@ export namespace roleDefenderRanged {
   export function handleAutoBuild() {
     const universals = _.filter(Game.creeps,
       (creep) => creep.memory.role == "defender.ranged");
-    if (universals.length < global.maxRangedDefenderCreepsAmount) {
+    if (universals.length < Memory.maxRangedDefenderCreepsAmount) {
       return build();
     }
     return false;

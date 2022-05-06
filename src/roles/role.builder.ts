@@ -10,19 +10,19 @@ export namespace roleBuilder {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel2):
-        global.maxBuilderCreepsAmount = 0;
+        Memory.maxBuilderCreepsAmount = 0;
         break;
       case (colonyGoals.controllerLevel3):
-        global.maxBuilderCreepsAmount = 2;
+        Memory.maxBuilderCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel4):
-        global.maxBuilderCreepsAmount = 4;
+        Memory.maxBuilderCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel5):
-        global.maxBuilderCreepsAmount = 4;
+        Memory.maxBuilderCreepsAmount = 4;
         break;
       default:
-        global.maxBuilderCreepsAmount = 3;
+        Memory.maxBuilderCreepsAmount = 3;
         break;
     }
   }
@@ -33,7 +33,7 @@ export namespace roleBuilder {
       return false;
     const builder = _.filter(Game.creeps,
       (creep) => creep.memory.role == "builder");
-    if (builder.length < global.maxBuilderCreepsAmount) {
+    if (builder.length < Memory.maxBuilderCreepsAmount) {
       return build();
     }
     return false;

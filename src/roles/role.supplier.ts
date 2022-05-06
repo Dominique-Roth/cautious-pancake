@@ -9,27 +9,26 @@ export namespace roleSupplier {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel2):
-        global.maxSupplierCreepsAmount = 1;
+        Memory.maxSupplierCreepsAmount = 1;
         break;
       case (colonyGoals.controllerLevel3):
-        global.maxSupplierCreepsAmount = 2;
+        Memory.maxSupplierCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel4):
-        global.maxSupplierCreepsAmount = 4;
+        Memory.maxSupplierCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel5):
-        global.maxSupplierCreepsAmount = 4;
+        Memory.maxSupplierCreepsAmount = 4;
         break;
       default:
-        global.maxSupplierCreepsAmount = 4;
+        Memory.maxSupplierCreepsAmount = 4;
         break;
     }
   }
 
   export function handleAutoBuild() {
-    const supplier = _.filter(Game.creeps,
-      (creep) => creep.memory.role == "supplier");
-    if (supplier.length < global.maxSupplierCreepsAmount) {
+    const supplier = _.filter(Game.creeps,(creep) => creep.memory.role === "supplier");
+    if (supplier.length < Memory.maxSupplierCreepsAmount) {
       return build();
     }
     return false;

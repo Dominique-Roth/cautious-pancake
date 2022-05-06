@@ -8,19 +8,19 @@ export namespace roleCarryLevel2 {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel5):
-        global.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevelTwoCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel6):
-        global.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevelTwoCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel7):
-        global.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevelTwoCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel8):
-        global.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevelTwoCreepsAmount = 4;
         break;
       default:
-        global.maxCarryLevelTwoCreepsAmount = 0;
+        Memory.maxCarryLevelTwoCreepsAmount = 0;
         break;
     }
   }
@@ -28,7 +28,7 @@ export namespace roleCarryLevel2 {
   export function handleAutoBuild() {
     const carries = _.filter(Game.creeps,
       (creep) => creep.memory.role == roleName);
-    if (carries.length < global.maxCarryLevelTwoCreepsAmount && minersAlive()) {
+    if (carries.length < Memory.maxCarryLevelTwoCreepsAmount && minersAlive()) {
       return build();
     }
     return false;

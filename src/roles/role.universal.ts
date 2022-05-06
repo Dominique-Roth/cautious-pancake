@@ -10,19 +10,19 @@ export namespace roleUniversal {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel2):
-        global.maxUniversalCreepsAmount = 4;
+        Memory.maxUniversalCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel3):
-        global.maxUniversalCreepsAmount = 2;
+        Memory.maxUniversalCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel4):
-        global.maxUniversalCreepsAmount = 2;
+        Memory.maxUniversalCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel5):
-        global.maxUniversalCreepsAmount = 2;
+        Memory.maxUniversalCreepsAmount = 2;
         break;
       default:
-        global.maxUniversalCreepsAmount = 2;
+        Memory.maxUniversalCreepsAmount = 2;
         break;
     }
   }
@@ -30,7 +30,7 @@ export namespace roleUniversal {
   export function handleAutoBuild() {
     const universals = _.filter(Game.creeps,
       (creep) => creep.memory.role == roleName);
-    if (universals.length < global.maxUniversalCreepsAmount) {
+    if (universals.length < Memory.maxUniversalCreepsAmount) {
       return build();
     }
     return false;

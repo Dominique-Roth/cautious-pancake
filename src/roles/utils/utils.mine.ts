@@ -1,21 +1,37 @@
-import { getMainRoom } from "../../utils/RoomUtils";
+import {getMainRoom} from "../../utils/RoomUtils";
+
 
 export function mineNextEnergyResource(creep: Creep) {
-  if (!creep.memory.harvestTargetID
-    || creep.memory.harvestTargetID > 1
-    || creep.memory.harvestTargetID < 0) {
-    creep.memory.harvestTargetID = Math.round(Math.random());
-  }
-  const source = creep.room.find(FIND_SOURCES)[creep.memory.harvestTargetID];
-  const harvestResult = creep.harvest(source);
-  if (harvestResult == ERR_NOT_IN_RANGE) {
-    const moveResult = creep.moveTo(source);
-    if (source.pos.isNearTo(creep.pos)
-      || source.pos.findClosestByPath([creep.pos])
-      || moveResult == ERR_NO_PATH) {
-      creep.memory.harvestTargetID = <number>creep.memory.harvestTargetID + 1;
+  if (!creep.memory.harvestTarget) {
+    /*
+    Thanks to @Nalha_Saldana for this super useful snippet.
+    Source: https://www.reddit.com/r/screeps/comments/5puufc/comment/dcu1nnb
+
+    ToDo: Make compatible for multiple rooms.
+     */
+    const room = creep.room;
+    const mineableSources = [];
+    for (const source of room.find(FIND_SOURCES)) {
+      let creepCount = 0;
+      for (const creep of room.find(FIND_MY_CREEPS)) {
+        if (creep.memory.harvestTarget === source.id) {
+          creepCount++;
+        }
+      }
+      if (creepCount < 2) {
+        mineableSources.push(source);
+      }
     }
-    return true;
+    if (mineableSources.length > 0) {
+      const newHarvestTarget = creep.pos.findClosestByPath(mineableSources);
+      if (newHarvestTarget)
+        creep.memory.harvestTarget = newHarvestTarget.id;
+    }
+  }
+  const source = Game.getObjectById(creep.memory.harvestTarget) as Source;
+  const harvestResult = creep.harvest(source);
+  if (harvestResult === ERR_NOT_IN_RANGE) {
+    creep.moveTo(source);
   }
   return true;
 }

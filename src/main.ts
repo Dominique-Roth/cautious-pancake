@@ -25,18 +25,6 @@ declare global {
     controllerLevel8
   }
 
-  // max creep role amounts
-  // ToDo: Move to `Memory`
-  var maxUniversalCreepsAmount: number,
-    maxMinerSmallCreepsAmount: number,
-    maxMinerMediumCreepsAmount: number,
-    maxCarryLevelOneCreepsAmount: number,
-    maxCarryLevelTwoCreepsAmount: number,
-    maxBuilderCreepsAmount: number,
-    maxRangedDefenderCreepsAmount: number,
-    maxUpgraderLevel1CreepsAmount: number,
-    maxUpgraderLevel2CreepsAmount: number,
-    maxSupplierCreepsAmount: number;
 
   /*
     Example types, expand on these or remove them and add your own.
@@ -56,17 +44,29 @@ declare global {
     towersBuilt: boolean,
     streetsBuilt: boolean,
     controllerLevelLastTick: number,
+
+    // Max Creep Role Amounts
+    maxUniversalCreepsAmount: number,
+    maxMinerSmallCreepsAmount: number,
+    maxMinerMediumCreepsAmount: number,
+    maxCarryLevelOneCreepsAmount: number,
+    maxCarryLevelTwoCreepsAmount: number,
+    maxBuilderCreepsAmount: number,
+    maxRangedDefenderCreepsAmount: number,
+    maxUpgraderLevel1CreepsAmount: number,
+    maxUpgraderLevel2CreepsAmount: number,
+    maxSupplierCreepsAmount: number
   }
 
   interface CreepMemory {
     role: string,
-    harvestTargetID?: number,
     room?: string,
     working?: boolean,
     upgrading?: boolean,
     building?: boolean,
     defending?: boolean,
-    carryTargetSource?: Source
+    carryTargetSource?: Source,
+    harvestTarget: Id<Source>,
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")

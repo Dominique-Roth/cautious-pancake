@@ -7,28 +7,28 @@ export function pickupNearestRessource(creep: Creep) {
   if (isCarry(creep)) {
     droppedSources = creep.room.find(FIND_DROPPED_RESOURCES, {
       filter: (resource) => {
-        return (resource.resourceType == RESOURCE_ENERGY)
+        return (resource.resourceType === RESOURCE_ENERGY)
           && (resource.pos.getRangeTo((getMainSpawn())) > CARRY_TARGET_RANGE);
       }
     });
   } else if (!carriesAlive()) {
     droppedSources = creep.room.find(FIND_DROPPED_RESOURCES, {
       filter: (resource) => {
-        return (resource.resourceType == RESOURCE_ENERGY);
+        return (resource.resourceType === RESOURCE_ENERGY);
       }
     });
   } else {
     droppedSources = creep.room.find(FIND_DROPPED_RESOURCES, {
       filter: (resource) => {
-        return (resource.resourceType == RESOURCE_ENERGY)
+        return (resource.resourceType === RESOURCE_ENERGY)
           && (resource.pos.getRangeTo((getMainSpawn())) <= CARRY_TARGET_RANGE);
       }
     });
   }
   if (droppedSources.length > 0) {
-    if (creep.pickup(droppedSources[0]) == ERR_NOT_IN_RANGE) {
-      creep.moveTo(droppedSources[0],
-        { visualizePathStyle: { stroke: "#aaff00" } });
+    const sourceToPickup = creep.pos.findClosestByPath(droppedSources) as Resource;
+    if (creep.pickup(sourceToPickup) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(sourceToPickup,{ visualizePathStyle: { stroke: "#aaff00" } });
     }
     return true;
   }
@@ -45,8 +45,7 @@ export function carrySupplyToSpawn(creep: Creep) {
       creep.say("🏭drop🏭");
       creep.drop(RESOURCE_ENERGY, creep.store[RESOURCE_ENERGY]);
     } else {
-      creep.moveTo(target,
-        { visualizePathStyle: { stroke: "#dd00cc" } });
+      creep.moveTo(target,{ visualizePathStyle: { stroke: "#dd00cc" } });
     }
   }
   return true;
