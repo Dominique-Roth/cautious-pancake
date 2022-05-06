@@ -26,7 +26,11 @@ export function pickupNearestRessource(creep: Creep) {
     });
   }
   if (droppedSources.length > 0) {
-    const sourceToPickup = creep.pos.findClosestByPath(droppedSources) as Resource;
+    let sourceToPickup;
+    for (const item of droppedSources) {
+      if (item.amount > 1000) sourceToPickup = item;
+    }
+    if (!sourceToPickup) sourceToPickup = creep.pos.findClosestByPath(droppedSources) as Resource;
     if (creep.pickup(sourceToPickup) === ERR_NOT_IN_RANGE) {
       creep.moveTo(sourceToPickup,{ visualizePathStyle: { stroke: "#aaff00" } });
     }
