@@ -104,7 +104,6 @@ export function handleRoadBuilding(room: Room) {
  */
 export function buildBase(room: Room) {
   if (Memory.baseBuilt) return false;
-  Memory.baseBuilt = true;
   if (
     _.filter(Game.structures, structure => structure.structureType == STRUCTURE_EXTENSION).length ==
     EXTENSIONS_PER_CONTROLLER_LEVEL[getMainController().level]
@@ -113,10 +112,13 @@ export function buildBase(room: Room) {
   const roomWidth = 50;
   const roomHeight = 50;
   const spawnPosition = getMainSpawn().pos;
-  const queue: RoomPosition[] = [];
-  queue.push(spawnPosition);
-  while (queue.length != 0) {
-    const currentPosition = queue.shift();
+  if (!Memory.baseBuildQueue) {
+    Memory.baseBuildQueue = [];
+    Memory.baseBuildQueue.push(spawnPosition);
+  }
+  while (Memory.baseBuildQueue.length != 0) {
+    if (Game.cpu.getUsed() > Game.cpu.tickLimit * 0.1 || Memory.baseBuildQueue.length > 1000) return true;
+    const currentPosition: RoomPosition = <RoomPosition>Memory.baseBuildQueue.shift();
     if (!currentPosition) continue;
     const currentPositionX = currentPosition.x;
     const currentPositionY = currentPosition.y;
@@ -126,8 +128,8 @@ export function buildBase(room: Room) {
       currentPositionX >= roomWidth ||
       currentPositionY < 0 ||
       currentPositionY >= roomHeight ||
-      Math.abs(currentPositionX - spawnPosition.x) > Memory.controllerLevelLastTick * 2 ||
-      Math.abs(currentPositionY - spawnPosition.y) > Memory.controllerLevelLastTick * 2
+      Math.abs(currentPositionX - spawnPosition.x) > getMainController().level * 2 ||
+      Math.abs(currentPositionY - spawnPosition.y) > getMainController().level * 2
     )
       continue;
     const neighbourOne = new RoomPosition(currentPositionX + 1, currentPositionY, currentPosition.roomName);
@@ -135,11 +137,13 @@ export function buildBase(room: Room) {
     const neighbourThree = new RoomPosition(currentPositionX, currentPositionY + 1, currentPosition.roomName);
     const neighbourFour = new RoomPosition(currentPositionX, currentPositionY - 1, currentPosition.roomName);
     // Add 4 adjacent blocks to queue.
-    queue.push(neighbourOne);
-    queue.push(neighbourTwo);
-    queue.push(neighbourThree);
-    queue.push(neighbourFour);
-    if (currentPosition.lookFor(LOOK_STRUCTURES).length > 0 || currentPosition.lookFor(LOOK_SOURCES).length > 0)
+    Memory.baseBuildQueue.push(neighbourOne);
+    Memory.baseBuildQueue.push(neighbourTwo);
+    Memory.baseBuildQueue.push(neighbourThree);
+    Memory.baseBuildQueue.push(neighbourFour);
+    const shouldIgnoreBuilding = new RoomPosition(currentPositionX, currentPositionY, currentPosition.roomName).findInRange(FIND_STRUCTURES, 0).length > 0
+      || new RoomPosition(currentPositionX, currentPositionY, currentPosition.roomName).findInRange(FIND_SOURCES, 0).length > 0;
+    if (shouldIgnoreBuilding)
       // || currentPosition.lookFor(LOOK_TERRAIN).) ToDo Check for wall!
       continue;
     // Place Structures
@@ -157,8 +161,10 @@ export function buildBase(room: Room) {
       currentPositionY == spawnPosition.y - 5
     ) {
       getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_WALL);
-    } else if (getMainController().level >= 3 && (currentPositionX == spawnPosition.x || currentPositionY == spawnPosition.y)) {
-      getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_ROAD);
+    } else if (currentPositionX == spawnPosition.x || currentPositionY == spawnPosition.y) {
+      if (getMainController().level >= 3)
+        getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_ROAD);
+      continue;
     } else if (
       (currentPositionX == spawnPosition.x + 1 && currentPosition.y == spawnPosition.y + 1) ||
       (currentPositionX == spawnPosition.x + 1 && currentPosition.y == spawnPosition.y - 1) ||
@@ -175,6 +181,6 @@ export function buildBase(room: Room) {
       getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_EXTENSION);
     }
   }
-
+  Memory.baseBuilt = true;
   return true;
 }

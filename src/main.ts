@@ -45,6 +45,7 @@ declare global {
     streetsBuilt: boolean,
     controllerLevelLastTick: number,
     pathsBuilt: number,
+    baseBuildQueue: RoomPosition[],
 
     // Max Creep Role Amounts
     maxUniversalCreepsAmount: number,
