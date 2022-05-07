@@ -1,7 +1,7 @@
-import { randomMoveWhileWithinCriticalInfrastructure } from "./utils/utils.move";
-import { resupplyStructures } from "./utils/utils.resupply";
-import { buildCreep } from "./utils/utils.spawn";
-import { upgradeControllerDirectly } from "./utils/utils.upgrade";
+import { randomMoveWhileWithinCriticalInfrastructure } from "../utils/utils.move";
+import { resupplyStructures } from "../utils/utils.resupply";
+import { buildCreep } from "../utils/utils.spawn";
+import { upgradeControllerDirectly } from "../utils/utils.upgrade";
 
 export namespace roleSupplier {
   export const roleName = "supplier.level1";

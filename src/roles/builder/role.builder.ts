@@ -1,8 +1,8 @@
 import { getMainRoom } from "utils/RoomUtils";
-import { buildConstructionSites } from "./utils/utils.build";
-import { randomMoveWhileWithinCriticalInfrastructure } from "./utils/utils.move";
-import { buildCreep } from "./utils/utils.spawn";
-import { upgradeControllerDirectly } from "./utils/utils.upgrade";
+import { buildConstructionSites } from "../utils/utils.build";
+import { randomMoveWhileWithinCriticalInfrastructure } from "../utils/utils.move";
+import { buildCreep } from "../utils/utils.spawn";
+import { upgradeControllerDirectly } from "../utils/utils.upgrade";
 
 export namespace roleBuilder {
   export const roleName = "builder.level1";

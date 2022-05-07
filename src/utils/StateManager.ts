@@ -1,13 +1,13 @@
-import { roleBuilder } from "../roles/role.builder";
-import { roleCarryLevel1 } from "../roles/role.carry.level1";
-import { roleCarryLevel2 } from "../roles/role.carry.level2";
-import { roleMinerLevel2 } from "../roles/role.miner.level2";
-import { roleMinerLevel1 } from "../roles/role.miner.level1";
-import { roleSupplier } from "../roles/role.supplier";
+import { roleBuilder } from "../roles/builder/role.builder";
+import { roleCarryLevel1 } from "../roles/carries/role.carry.level1";
+import { roleCarryLevel2 } from "../roles/carries/role.carry.level2";
+import { roleMinerLevel2 } from "../roles/miner/role.miner.level2";
+import { roleMinerLevel1 } from "../roles/miner/role.miner.level1";
+import { roleSupplier } from "../roles/supplier/role.supplier";
 import { roleUniversal } from "../roles/role.universal";
-import { roleUpgraderLevel1 } from "../roles/role.upgrader.level1";
-import { roleUpgraderLevel2 } from "../roles/role.upgrader.level2";
-import { roleDefenderRanged } from "../roles/roles.defender.ranged";
+import { roleUpgraderLevel1 } from "../roles/upgrader/role.upgrader.level1";
+import { roleUpgraderLevel2 } from "../roles/upgrader/role.upgrader.level2";
+import { roleDefenderRanged } from "../defender/roles.defender.ranged";
 import { getMainController, getMainRoom } from "./RoomUtils";
 
 

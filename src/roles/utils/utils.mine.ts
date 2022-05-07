@@ -18,7 +18,19 @@ export function mineNextEnergyResource(creep: Creep) {
           creepCount++;
         }
       }
-      if (creepCount < 2) {
+      let maxCreepCount;
+      if (minersAlive()) {
+        if (!Memory.minersPreviouslyActive) {
+          for (const creep of room.find(FIND_MY_CREEPS)) {
+            creep.memory.harvestTarget = undefined;
+          }
+        }
+        Memory.minersPreviouslyActive = true;
+        maxCreepCount = 2;
+      }
+      if (!maxCreepCount)
+        maxCreepCount = 16;
+      if (creepCount < maxCreepCount) {
         mineableSources.push(source);
       }
     }

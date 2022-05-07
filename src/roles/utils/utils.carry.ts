@@ -28,7 +28,10 @@ export function pickupNearestRessource(creep: Creep) {
   if (droppedSources.length > 0) {
     let sourceToPickup;
     for (const item of droppedSources) {
-      if (item.amount > 1000) sourceToPickup = item;
+      if (item.amount > 1000) {
+        sourceToPickup = item;
+        break;
+      }
     }
     if (!sourceToPickup) sourceToPickup = creep.pos.findClosestByPath(droppedSources) as Resource;
     if (creep.pickup(sourceToPickup) === ERR_NOT_IN_RANGE) {

@@ -1,23 +1,20 @@
-import { carrySupplyToSpawn } from "./utils/utils.carry";
-import { minersAlive } from "./utils/utils.mine";
-import { buildCreep } from "./utils/utils.spawn";
+import { carrySupplyToSpawn } from "../utils/utils.carry";
+import { minersAlive } from "../utils/utils.mine";
+import { buildCreep } from "../utils/utils.spawn";
 
 export namespace roleCarryLevel2 {
   export const roleName = "carry.level2";
 
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
+      case (colonyGoals.controllerLevel4):
+        Memory.maxCarryLevelTwoCreepsAmount = 4;
+        break;
       case (colonyGoals.controllerLevel5):
         Memory.maxCarryLevelTwoCreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel6):
-        Memory.maxCarryLevelTwoCreepsAmount = 4;
-        break;
-      case (colonyGoals.controllerLevel7):
-        Memory.maxCarryLevelTwoCreepsAmount = 4;
-        break;
-      case (colonyGoals.controllerLevel8):
-        Memory.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevelTwoCreepsAmount = 2;
         break;
       default:
         Memory.maxCarryLevelTwoCreepsAmount = 0;

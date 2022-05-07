@@ -1,6 +1,6 @@
-import { minersAlive } from "./utils/utils.mine";
-import { buildCreep } from "./utils/utils.spawn";
-import { carrySupplyToSpawn } from "./utils/utils.carry";
+import { minersAlive } from "../utils/utils.mine";
+import { buildCreep } from "../utils/utils.spawn";
+import { carrySupplyToSpawn } from "../utils/utils.carry";
 
 export namespace roleCarryLevel1 {
   export const roleName = "carry.level1";

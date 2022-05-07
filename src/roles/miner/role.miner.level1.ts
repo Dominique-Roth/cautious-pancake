@@ -1,5 +1,5 @@
-import { mineNextEnergyResource, minersAlive } from "./utils/utils.mine";
-import { buildCreep } from "./utils/utils.spawn";
+import { mineNextEnergyResource, minersAlive } from "../utils/utils.mine";
+import { buildCreep } from "../utils/utils.spawn";
 
 export namespace roleMinerLevel1 {
   export const roleName = "miner.level1";

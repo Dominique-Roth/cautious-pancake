@@ -1,5 +1,5 @@
-import {buildCreep} from "./utils/utils.spawn";
-import {upgradeControllerDirectly} from "./utils/utils.upgrade";
+import {buildCreep} from "../utils/utils.spawn";
+import {upgradeControllerDirectly} from "../utils/utils.upgrade";
 
 export namespace roleUpgraderLevel1 {
   export const roleName = "upgrader.level1";

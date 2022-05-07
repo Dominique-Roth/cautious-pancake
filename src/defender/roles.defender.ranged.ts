@@ -1,8 +1,8 @@
-import { defend } from "./utils/utils.defend";
-import { buildCreep } from "./utils/utils.spawn";
-import { pickupNearestRessource } from "./utils/utils.carry";
-import { randomMoveWhileWithinCriticalInfrastructure } from "./utils/utils.move";
-import { upgradeControllerDirectly } from "./utils/utils.upgrade";
+import { defend } from "../roles/utils/utils.defend";
+import { buildCreep } from "../roles/utils/utils.spawn";
+import { pickupNearestRessource } from "../roles/utils/utils.carry";
+import { randomMoveWhileWithinCriticalInfrastructure } from "../roles/utils/utils.move";
+import { upgradeControllerDirectly } from "../roles/utils/utils.upgrade";
 
 export namespace roleDefenderRanged {
 

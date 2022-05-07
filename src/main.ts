@@ -45,7 +45,9 @@ declare global {
     streetsBuilt: boolean,
     controllerLevelLastTick: number,
     pathsBuilt: number,
-    baseBuildQueue: RoomPosition[],
+    baseBuildQueue: RoomPosition[]|undefined,
+    baseBuildStartTick: number,
+    minersPreviouslyActive: boolean,
 
     // Max Creep Role Amounts
     maxUniversalCreepsAmount: number,
@@ -57,6 +59,7 @@ declare global {
     maxRangedDefenderCreepsAmount: number,
     maxUpgraderLevel1CreepsAmount: number,
     maxUpgraderLevel2CreepsAmount: number,
+    maxUpgraderLevel3CreepsAmount: number,
     maxSupplierCreepsAmount: number
   }
 
@@ -87,6 +90,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
   if (!Memory.controllerLevelLastTick
     || (Memory.controllerLevelLastTick
       && currentControllerLevel != Memory.controllerLevelLastTick)) {
+    Memory.baseBuildQueue = undefined;
     Memory.baseBuilt = false;
     Memory.controllerLevelLastTick = currentControllerLevel;
   }

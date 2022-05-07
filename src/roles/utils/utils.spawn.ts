@@ -1,7 +1,7 @@
 import { Config, names, uniqueNamesGenerator } from "unique-names-generator";
 import { getMainSpawn } from "../../utils/RoomUtils";
 import { roleUniversal } from "../role.universal";
-import { roleUpgraderLevel1 } from "../role.upgrader.level1";
+import { roleUpgraderLevel1 } from "../upgrader/role.upgrader.level1";
 
 export function buildCreep(
   creepRole: string,
@@ -37,6 +37,9 @@ export function generateCreepName(role: string) {
     case "upgrader.level2":
       name = "u2: ";
       break;
+    case "upgrader.level3":
+      name = "u3: ";
+      break;
     case "builder":
       name = "b: ";
       break;
@@ -45,6 +48,9 @@ export function generateCreepName(role: string) {
       break;
     case "carry.level2":
       name = "c2: ";
+      break;
+    case "carry.level3":
+      name = "c3: ";
       break;
     case "miner.level2":
       name = "m2: ";
