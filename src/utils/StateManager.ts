@@ -48,6 +48,10 @@ export function creepLoop(name: string) {
   const creep = Game.creeps[name];
   if (!Game.creeps[name])
     return;
+  if (<number>Game.creeps[name].ticksToLive < 3) {
+    if (Game.creeps[name].store[RESOURCE_ENERGY] > 0) Game.creeps[name].drop(RESOURCE_ENERGY);
+    else { Game.creeps[name].suicide(); return; }
+  }
   switch (Game.creeps[name].memory.role) {
     case roleUniversal.roleName:
       roleUniversal.run(creep);
