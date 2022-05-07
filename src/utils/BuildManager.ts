@@ -143,18 +143,7 @@ export function buildBase(room: Room) {
       // || currentPosition.lookFor(LOOK_TERRAIN).) ToDo Check for wall!
       continue;
     // Place Structures
-    if (currentPositionX == spawnPosition.x || currentPositionY == spawnPosition.y) {
-      if (getMainController().level >= 3) {
-        getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_ROAD);
-      }
-    } else if (
-      (currentPositionX == spawnPosition.x + 1 && currentPosition.y == spawnPosition.y + 1) ||
-      (currentPositionX == spawnPosition.x + 1 && currentPosition.y == spawnPosition.y - 1) ||
-      (currentPositionX == spawnPosition.x - 1 && currentPosition.y == spawnPosition.y + 1) ||
-      (currentPositionX == spawnPosition.x - 1 && currentPosition.y == spawnPosition.y - 1)
-    ) {
-      getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_TOWER);
-    } else if (
+    if (
       (currentPositionX == spawnPosition.x + 5 && currentPositionY == spawnPosition.y) ||
       (currentPositionX == spawnPosition.x - 5 && currentPositionY == spawnPosition.y) ||
       (currentPositionX == spawnPosition.x && currentPositionY == spawnPosition.y + 5) ||
@@ -168,6 +157,15 @@ export function buildBase(room: Room) {
       currentPositionY == spawnPosition.y - 5
     ) {
       getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_WALL);
+    } else if (getMainController().level >= 3 && (currentPositionX == spawnPosition.x || currentPositionY == spawnPosition.y)) {
+      getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_ROAD);
+    } else if (
+      (currentPositionX == spawnPosition.x + 1 && currentPosition.y == spawnPosition.y + 1) ||
+      (currentPositionX == spawnPosition.x + 1 && currentPosition.y == spawnPosition.y - 1) ||
+      (currentPositionX == spawnPosition.x - 1 && currentPosition.y == spawnPosition.y + 1) ||
+      (currentPositionX == spawnPosition.x - 1 && currentPosition.y == spawnPosition.y - 1)
+    ) {
+      getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_TOWER);
     } else if (
       neighbourOne.lookFor(LOOK_STRUCTURES).length == 0 &&
       neighbourTwo.lookFor(LOOK_STRUCTURES).length == 0 &&
@@ -177,5 +175,6 @@ export function buildBase(room: Room) {
       getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_EXTENSION);
     }
   }
+
   return true;
 }

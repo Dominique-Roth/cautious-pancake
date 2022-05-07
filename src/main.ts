@@ -67,7 +67,7 @@ declare global {
     building?: boolean,
     defending?: boolean,
     carryTargetSource?: Source,
-    harvestTarget: Id<Source>,
+    harvestTarget?: Id<Source>,
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")

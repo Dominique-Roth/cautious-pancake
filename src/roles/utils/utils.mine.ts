@@ -28,7 +28,7 @@ export function mineNextEnergyResource(creep: Creep) {
         creep.memory.harvestTarget = newHarvestTarget.id;
     }
   }
-  const source = Game.getObjectById(creep.memory.harvestTarget) as Source;
+  const source = Game.getObjectById(creep.memory.harvestTarget as Id<Source>) as Source;
   const harvestResult = creep.harvest(source);
   if (harvestResult === ERR_NOT_IN_RANGE) {
     creep.moveTo(source);
@@ -37,9 +37,7 @@ export function mineNextEnergyResource(creep: Creep) {
 }
 
 export function minersAlive(amount = 1): boolean {
-  return ((_.filter(Game.creeps,
-    (creep) =>
-      creep.memory.role == "miner.level1"
+  return ((_.filter(Game.creeps, (creep) => creep.memory.role == "miner.level1"
       || creep.memory.role == "miner.level2"))
     .length >= amount);
 }
