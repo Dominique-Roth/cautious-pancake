@@ -158,7 +158,7 @@ export function buildBase(room: Room) {
       currentPositionY == spawnPosition.y + 5 ||
       currentPositionY == spawnPosition.y - 5
     ) {
-      getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_RAMPART);
+      getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_WALL);
     } else if (
       neighbourOne.lookFor(LOOK_STRUCTURES).length == 0 &&
       neighbourTwo.lookFor(LOOK_STRUCTURES).length == 0 &&

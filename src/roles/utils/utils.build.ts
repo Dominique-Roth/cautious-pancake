@@ -33,3 +33,8 @@ export function buildConstructionSites(creep: Creep) {
   }
   return false;
 }
+
+export function buildersAlive(amount = 1): boolean {
+  return ((_.filter(Game.creeps, (creep) => creep.memory.role == "builder")).length >= amount);
+}
+
