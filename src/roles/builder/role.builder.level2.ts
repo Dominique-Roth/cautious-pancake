@@ -15,7 +15,7 @@ export namespace roleBuilderLevel2 {
         Memory.maxBuilderLevel2CreepsAmount = 4;
         break;
       default:
-        Memory.maxBuilderLevel2CreepsAmount = 3;
+        Memory.maxBuilderLevel2CreepsAmount = 0;
         break;
     }
   }

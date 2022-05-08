@@ -12,18 +12,17 @@ export namespace roleUpgraderLevel2 {
         else Memory.maxUpgraderLevel2CreepsAmount = 6;
         break;
       case colonyGoals.controllerLevel5:
-        if (buildersAlive()) Memory.maxUpgraderLevel2CreepsAmount = 2;
-        else Memory.maxUpgraderLevel2CreepsAmount = 2;
+        Memory.maxUpgraderLevel2CreepsAmount = 2;
         break;
       default:
-        Memory.maxUpgraderLevel2CreepsAmount = 10;
+        Memory.maxUpgraderLevel2CreepsAmount = 0;
         break;
     }
   }
 
   export function handleAutoBuild(): boolean {
-    const universals = _.filter(Game.creeps, creep => creep.memory.role === roleName);
-    if (universals.length < Memory.maxUpgraderLevel2CreepsAmount) {
+    const upgrader = _.filter(Game.creeps, creep => creep.memory.role === roleName);
+    if (upgrader.length < Memory.maxUpgraderLevel2CreepsAmount) {
       return build();
     }
     return false;
@@ -31,7 +30,7 @@ export namespace roleUpgraderLevel2 {
 
   export function build(): boolean {
     // 4 Carry, 5 Move, Work
-    return buildCreep(roleName, [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK]);
+    return buildCreep(roleName, [MOVE,MOVE,WORK,WORK,WORK,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY]);
   }
 
   /** run

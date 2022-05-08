@@ -1,5 +1,5 @@
-import { pickupNearestRessource } from "./utils.carry";
-import { mineNextEnergyResource, minersAlive } from "./utils.mine";
+import {pickupNearestRessource} from "./utils.carry";
+import {mineNextEnergyResource, minersAlive} from "./utils.mine";
 
 export function buildConstructionSites(creep: Creep) {
   if (creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
@@ -16,7 +16,7 @@ export function buildConstructionSites(creep: Creep) {
   if (creep.memory.building) {
     if (targets.length > 0) {
       if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffffff" } });
+        creep.moveTo(targets[0], {visualizePathStyle: {stroke: "#ffffff"}});
       }
       return true;
     }
@@ -34,6 +34,10 @@ export function buildConstructionSites(creep: Creep) {
 }
 
 export function buildersAlive(amount = 1): boolean {
-  return ((_.filter(Game.creeps, (creep) => creep.memory.role == "builder")).length >= amount);
+  return ((_.filter(Game.creeps, (creep) =>
+    creep.memory.role == "builder.level1"
+    || creep.memory.role == "builder.level2"
+    || creep.memory.role == "builder.level3"
+  )).length >= amount);
 }
 

@@ -35,7 +35,7 @@ export namespace roleMinerLevel1 {
   }
 
   export function handleAutoBuild() {
-    if (!minersAlive(3))
+    if (!minersAlive())
       return build();
     const miners = _.filter(Game.creeps,
       (creep) => creep.memory.role == roleName);

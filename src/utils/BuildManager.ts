@@ -8,12 +8,12 @@ import {roleUniversal} from "../roles/role.universal";
 import {roleUpgraderLevel1} from "../roles/upgrader/role.upgrader.level1";
 import {roleUpgraderLevel2} from "../roles/upgrader/role.upgrader.level2";
 import {roleDefenderRanged} from "../roles/defender/roles.defender.ranged";
-import {carriesAlive} from "../roles/utils/utils.carry";
-import {minersAlive} from "../roles/utils/utils.mine";
 import {getMainController, getMainRoom, getMainSpawn} from "./RoomUtils";
-import {EXTENSIONS_PER_CONTROLLER_LEVEL} from "./utils.rcl";
 import {roleUpgraderLevel3} from "../roles/upgrader/role.upgrader.level3";
 import {roleBuilderLevel2} from "../roles/builder/role.builder.level2";
+import {roleBuilderLevel3} from "../roles/builder/role.builder.level3";
+import {roleMinerLevel3} from "../roles/miner/role.miner.level3";
+import {roleHealerLevel1} from "../roles/healer/role.healer.level1";
 
 export function handleCreepCreation() {
   handleCreepBuild();
@@ -21,43 +21,59 @@ export function handleCreepCreation() {
 
 export function handleCreepState() {
   roleUniversal.setBuildState();
+  roleMinerLevel3.setBuildState();
   roleMinerLevel2.setBuildState();
   roleMinerLevel1.setBuildState();
   roleCarryLevel2.setBuildState();
   roleCarryLevel1.setBuildState();
   roleSupplier.setBuildState();
+  roleBuilderLevel3.setBuildState();
   roleBuilderLevel2.setBuildState();
   roleBuilderLevel1.setBuildState();
   roleUpgraderLevel3.setBuildState();
   roleUpgraderLevel2.setBuildState();
   roleUpgraderLevel1.setBuildState();
   roleDefenderRanged.setBuildState();
+  roleHealerLevel1.setBuildState();
 }
 
 function handleCreepBuild() {
   if (getMainSpawn().spawning) return;
   console.log("Trying to build: universal");
   if (roleUniversal.handleAutoBuild()) return;
+
+  console.log("Trying to build: healer1");
+  if (roleHealerLevel1.handleAutoBuild()) return;
+
+  console.log("Trying to build: miner2");
+  if (roleMinerLevel3.handleAutoBuild()) return;
   console.log("Trying to build: miner2");
   if (roleMinerLevel2.handleAutoBuild()) return;
   console.log("Trying to build: miner1");
   if (roleMinerLevel1.handleAutoBuild()) return;
+
   console.log("Trying to build: supplier");
   if (roleSupplier.handleAutoBuild()) return;
+
   console.log("Trying to build: carry2");
   if (roleCarryLevel2.handleAutoBuild()) return;
   console.log("Trying to build: carry1");
   if (roleCarryLevel1.handleAutoBuild()) return;
+
+  console.log("Trying to build: builder2");
+  if (roleBuilderLevel3.handleAutoBuild()) return;
   console.log("Trying to build: builder2");
   if (roleBuilderLevel2.handleAutoBuild()) return;
   console.log("Trying to build: builder1");
   if (roleBuilderLevel1.handleAutoBuild()) return;
+
   console.log("Trying to build: upgrader3");
   if (roleUpgraderLevel3.handleAutoBuild()) return;
   console.log("Trying to build: upgrader2");
   if (roleUpgraderLevel2.handleAutoBuild()) return;
   console.log("Trying to build: upgrader1");
   if (roleUpgraderLevel1.handleAutoBuild()) return;
+
   console.log("Trying to build: defender.ranged");
   if (roleDefenderRanged.handleAutoBuild()) return;
 }
@@ -216,10 +232,10 @@ export function buildBase(room: Room) {
     // Place Structures
     let constructionResult;
     if (
-      (currentPositionX === spawnPosition.x + 10 && currentPositionY === spawnPosition.y) ||
-      (currentPositionX === spawnPosition.x - 10 && currentPositionY === spawnPosition.y) ||
-      (currentPositionX === spawnPosition.x && currentPositionY === spawnPosition.y + 10) ||
-      (currentPositionX === spawnPosition.x && currentPositionY === spawnPosition.y - 10)
+      (currentPositionX === spawnPosition.x + 10 && currentPositionY >= spawnPosition.y - 1 && currentPositionY <= spawnPosition.y + 1) ||
+      (currentPositionX === spawnPosition.x - 10 && currentPositionY >= spawnPosition.y - 1 && currentPositionY <= spawnPosition.y + 1) ||
+      (currentPositionX >= spawnPosition.x - 1 && currentPositionX <= spawnPosition.x + 1 && currentPositionY === spawnPosition.y + 10) ||
+      (currentPositionX >= spawnPosition.x - 1 && currentPositionX <= spawnPosition.x + 1 && currentPositionY === spawnPosition.y - 10)
     ) {
       constructionResult = getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_RAMPART);
     } else if (
@@ -242,16 +258,16 @@ export function buildBase(room: Room) {
       constructionResult = getMainRoom().createConstructionSite(currentPositionX, currentPositionY, STRUCTURE_TOWER);
     } else {
       // @ts-ignore
-      if (neighbourOne === undefined || neighbourOne.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourOne.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       // @ts-ignore
-      if (neighbourTwo === undefined || neighbourTwo.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourTwo.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       // @ts-ignore
-      if (neighbourThree === undefined || neighbourThree.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourThree.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       // @ts-ignore
-      if (neighbourFour === undefined || neighbourFour.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourFour.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       constructionResult = getMainRoom().createConstructionSite(
         currentPositionX,

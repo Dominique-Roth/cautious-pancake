@@ -1,7 +1,7 @@
-import { Config, names, uniqueNamesGenerator } from "unique-names-generator";
-import { getMainSpawn } from "../../utils/RoomUtils";
-import { roleUniversal } from "../role.universal";
-import { roleUpgraderLevel1 } from "../upgrader/role.upgrader.level1";
+import {Config, names, uniqueNamesGenerator} from "unique-names-generator";
+import {getMainSpawn} from "../../utils/RoomUtils";
+import {roleUniversal} from "../role.universal";
+import {roleUpgraderLevel1} from "../upgrader/role.upgrader.level1";
 
 export function buildCreep(
   creepRole: string,
@@ -14,7 +14,7 @@ export function buildCreep(
   const spawnResult = getMainSpawn().spawnCreep(
     bodyParts,
     newName,
-    { memory: { role: creepRole } }
+    {memory: {role: creepRole}}
   );
   if (spawnResult == ERR_NOT_ENOUGH_ENERGY)
     return false;
@@ -43,6 +43,12 @@ export function generateCreepName(role: string) {
     case "builder.level1":
       name = "b1: ";
       break;
+    case "builder.level2":
+      name = "b2: ";
+      break;
+    case "builder.level3":
+      name = "b3: ";
+      break;
     case "carry.level1":
       name = "c1: ";
       break;
@@ -51,6 +57,9 @@ export function generateCreepName(role: string) {
       break;
     case "carry.level3":
       name = "c3: ";
+      break;
+    case "miner.level3":
+      name = "m3: ";
       break;
     case "miner.level2":
       name = "m2: ";
@@ -63,6 +72,9 @@ export function generateCreepName(role: string) {
       break;
     case "supplier":
       name = "s: ";
+      break;
+    case "healer.level1":
+      name = "h1: ";
       break;
   }
   const characterName: string = uniqueNamesGenerator(config);

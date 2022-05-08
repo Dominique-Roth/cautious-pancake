@@ -1,4 +1,4 @@
-import { defend } from "../utils/utils.defend";
+import { defendRanged } from "../utils/utils.defend";
 import { buildCreep } from "../utils/utils.spawn";
 import { pickupNearestRessource } from "../utils/utils.carry";
 import { randomMoveWhileWithinCriticalInfrastructure } from "../utils/utils.move";
@@ -54,6 +54,6 @@ export namespace roleDefenderRanged {
       console.log("Controller about to downgrade!");
       return upgradeControllerDirectly(creep);
     }
-    return defend(creep);
+    return defendRanged(creep);
   }
 }

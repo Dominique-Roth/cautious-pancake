@@ -50,6 +50,7 @@ export function mineNextEnergyResource(creep: Creep) {
 
 export function minersAlive(amount = 1): boolean {
   return ((_.filter(Game.creeps, (creep) => creep.memory.role == "miner.level1"
-      || creep.memory.role == "miner.level2"))
+    || creep.memory.role == "miner.level2"
+    || creep.memory.role == "miner.level3"))
     .length >= amount);
 }

@@ -20,7 +20,14 @@ export function handleTowersLoop() {
       if (damagedStructures.length === 0)
         damagedStructures = tower.room.find(FIND_STRUCTURES, {
           filter: (structure) => {
-            return structure.hits < structure.hitsMax && structure.structureType !== STRUCTURE_WALL;
+            return structure.hits < structure.hitsMax && structure.structureType !== STRUCTURE_WALL && structure.structureType !== STRUCTURE_RAMPART;
+          }
+        });
+      if (damagedStructures.length === 0)
+        damagedStructures = tower.room.find(FIND_STRUCTURES, {
+          filter: (structure) => {
+            return structure.hits < (getMainController().level < 7 ? (structure.hitsMax * 0.001) : structure.hitsMax)
+              && structure.structureType === STRUCTURE_RAMPART;
           }
         });
       if (damagedStructures.length === 0)

@@ -1,22 +1,25 @@
 import { buildCreep } from "../utils/utils.spawn";
 import { mineNextEnergyResource } from "../utils/utils.mine";
 
-export namespace roleMinerLevel2 {
-  export const roleName = "miner.level2";
+export namespace roleMinerLevel3 {
+  export const roleName = "miner.level3";
 
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
-      case (colonyGoals.controllerLevel3):
-        Memory.maxMinerLevel2CreepsAmount = 3;
-        break;
-      case (colonyGoals.controllerLevel4):
-        Memory.maxMinerLevel2CreepsAmount = 4;
-        break;
       case (colonyGoals.controllerLevel5):
-        Memory.maxMinerLevel2CreepsAmount = 2;
+        Memory.maxMinerLevel3CreepsAmount = 4;
+        break;
+      case (colonyGoals.controllerLevel6):
+        Memory.maxMinerLevel3CreepsAmount = 4;
+        break;
+      case (colonyGoals.controllerLevel7):
+        Memory.maxMinerLevel3CreepsAmount = 4;
+        break;
+      case (colonyGoals.controllerLevel8):
+        Memory.maxMinerLevel3CreepsAmount = 4;
         break;
       default:
-        Memory.maxMinerLevel2CreepsAmount = 0;
+        Memory.maxMinerLevel3CreepsAmount = 0;
         break;
     }
   }
@@ -24,7 +27,7 @@ export namespace roleMinerLevel2 {
   export function handleAutoBuild() {
     const miners = _.filter(Game.creeps,
       (creep) => creep.memory.role === roleName);
-    if (miners.length < Memory.maxMinerLevel2CreepsAmount) {
+    if (miners.length < Memory.maxMinerLevel3CreepsAmount) {
       return build();
     }
     return false;
@@ -35,7 +38,7 @@ export namespace roleMinerLevel2 {
   export function build() {
     return buildCreep(
       roleName,
-      [WORK, WORK, WORK, WORK, WORK, MOVE]
+      [MOVE,MOVE,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK]
     );
   }
 

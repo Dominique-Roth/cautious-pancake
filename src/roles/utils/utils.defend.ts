@@ -1,10 +1,9 @@
 import { pickupNearestRessource } from "./utils.carry";
 import { randomMoveWhileWithinCriticalInfrastructure } from "./utils.move";
 
-export function defend(creep: Creep) {
+export function defendRanged(creep: Creep) {
   const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-  if (target
-    && creep.store[RESOURCE_ENERGY] > 0) {
+  if (target && creep.store[RESOURCE_ENERGY] > 0) {
     creep.memory.defending = true;
   }
   if (creep.memory.defending) {
@@ -13,14 +12,11 @@ export function defend(creep: Creep) {
       creep.memory.defending = false;
     }
     if (target) {
-      const attackResult = creep.attack(target);
-      if (attackResult == ERR_NOT_IN_RANGE)
-        creep.moveTo(target);
-    } else if (creep.store.getFreeCapacity(RESOURCE_ENERGY) != 0)
-      creep.memory.defending = false;
+      const attackResult = creep.rangedAttack(target);
+      if (attackResult == ERR_NOT_IN_RANGE) creep.moveTo(target);
+    } else if (creep.store.getFreeCapacity(RESOURCE_ENERGY) != 0)creep.memory.defending = false;
     randomMoveWhileWithinCriticalInfrastructure(creep);
   } else {
-    if (!pickupNearestRessource(creep))
-      randomMoveWhileWithinCriticalInfrastructure(creep);
+    if (!pickupNearestRessource(creep)) randomMoveWhileWithinCriticalInfrastructure(creep);
   }
 }

@@ -1,16 +1,19 @@
-import { roleBuilderLevel1 } from "../roles/builder/role.builder.level1";
-import { roleCarryLevel1 } from "../roles/carries/role.carry.level1";
-import { roleCarryLevel2 } from "../roles/carries/role.carry.level2";
-import { roleMinerLevel2 } from "../roles/miner/role.miner.level2";
-import { roleMinerLevel1 } from "../roles/miner/role.miner.level1";
-import { roleSupplier } from "../roles/supplier/role.supplier";
-import { roleUniversal } from "../roles/role.universal";
-import { roleUpgraderLevel1 } from "../roles/upgrader/role.upgrader.level1";
-import { roleUpgraderLevel2 } from "../roles/upgrader/role.upgrader.level2";
-import { roleDefenderRanged } from "../roles/defender/roles.defender.ranged";
-import { getMainController, getMainRoom } from "./RoomUtils";
+import {roleBuilderLevel1} from "../roles/builder/role.builder.level1";
+import {roleCarryLevel1} from "../roles/carries/role.carry.level1";
+import {roleCarryLevel2} from "../roles/carries/role.carry.level2";
+import {roleMinerLevel2} from "../roles/miner/role.miner.level2";
+import {roleMinerLevel1} from "../roles/miner/role.miner.level1";
+import {roleSupplier} from "../roles/supplier/role.supplier";
+import {roleUniversal} from "../roles/role.universal";
+import {roleUpgraderLevel1} from "../roles/upgrader/role.upgrader.level1";
+import {roleUpgraderLevel2} from "../roles/upgrader/role.upgrader.level2";
+import {roleDefenderRanged} from "../roles/defender/roles.defender.ranged";
+import {getMainController} from "./RoomUtils";
 import {roleBuilderLevel2} from "../roles/builder/role.builder.level2";
 import {roleUpgraderLevel3} from "../roles/upgrader/role.upgrader.level3";
+import {roleBuilderLevel3} from "../roles/builder/role.builder.level3";
+import {roleMinerLevel3} from "../roles/miner/role.miner.level3";
+import {roleHealerLevel1} from "../roles/healer/role.healer.level1";
 
 
 export function handleGameState() {
@@ -42,7 +45,8 @@ export function handleGameState() {
     case 8:
       Memory.currentColonyGoal = colonyGoals.controllerLevel8;
       break;
-    default: throw new Error("No Colony Goal Detected!");
+    default:
+      throw new Error("No Colony Goal Detected!");
   }
 }
 
@@ -52,7 +56,11 @@ export function creepLoop(name: string) {
     return;
   if (<number>Game.creeps[name].ticksToLive < 3) {
     if (Game.creeps[name].store[RESOURCE_ENERGY] > 0) Game.creeps[name].drop(RESOURCE_ENERGY);
-    else { Game.creeps[name].suicide(); return; }
+    else {
+      Game.creeps[name].say("Goodbye!");
+      Game.creeps[name].suicide();
+      return;
+    }
   }
   switch (Game.creeps[name].memory.role) {
     case roleUniversal.roleName:
@@ -73,11 +81,17 @@ export function creepLoop(name: string) {
     case roleBuilderLevel2.roleName:
       roleBuilderLevel2.run(creep);
       break;
+    case roleBuilderLevel3.roleName:
+      roleBuilderLevel3.run(creep);
+      break;
     case roleCarryLevel1.roleName:
       roleCarryLevel1.run(creep);
       break;
     case roleCarryLevel2.roleName:
       roleCarryLevel2.run(creep);
+      break;
+    case roleMinerLevel3.roleName:
+      roleMinerLevel3.run(creep);
       break;
     case roleMinerLevel2.roleName:
       roleMinerLevel2.run(creep);
@@ -90,6 +104,9 @@ export function creepLoop(name: string) {
       break;
     case "supplier":
       roleSupplier.run(creep);
+      break;
+    case roleHealerLevel1.roleName:
+      roleHealerLevel1.run(creep);
       break;
     default:
       creep.say("!NO ROLE!");
