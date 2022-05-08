@@ -7,7 +7,7 @@ import { roleSupplier } from "../roles/supplier/role.supplier";
 import { roleUniversal } from "../roles/role.universal";
 import { roleUpgraderLevel1 } from "../roles/upgrader/role.upgrader.level1";
 import { roleUpgraderLevel2 } from "../roles/upgrader/role.upgrader.level2";
-import { roleDefenderRanged } from "../defender/roles.defender.ranged";
+import { roleDefenderRanged } from "../roles/defender/roles.defender.ranged";
 import { getMainController, getMainRoom } from "./RoomUtils";
 import {roleBuilderLevel2} from "../roles/builder/role.builder.level2";
 import {roleUpgraderLevel3} from "../roles/upgrader/role.upgrader.level3";

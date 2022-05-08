@@ -7,7 +7,7 @@ import {roleSupplier} from "../roles/supplier/role.supplier";
 import {roleUniversal} from "../roles/role.universal";
 import {roleUpgraderLevel1} from "../roles/upgrader/role.upgrader.level1";
 import {roleUpgraderLevel2} from "../roles/upgrader/role.upgrader.level2";
-import {roleDefenderRanged} from "../defender/roles.defender.ranged";
+import {roleDefenderRanged} from "../roles/defender/roles.defender.ranged";
 import {carriesAlive} from "../roles/utils/utils.carry";
 import {minersAlive} from "../roles/utils/utils.mine";
 import {getMainController, getMainRoom, getMainSpawn} from "./RoomUtils";
