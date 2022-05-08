@@ -1,4 +1,4 @@
-import { roleBuilder } from "../roles/builder/role.builder";
+import { roleBuilderLevel1 } from "../roles/builder/role.builder.level1";
 import { roleCarryLevel1 } from "../roles/carries/role.carry.level1";
 import { roleCarryLevel2 } from "../roles/carries/role.carry.level2";
 import { roleMinerLevel2 } from "../roles/miner/role.miner.level2";
@@ -9,6 +9,8 @@ import { roleUpgraderLevel1 } from "../roles/upgrader/role.upgrader.level1";
 import { roleUpgraderLevel2 } from "../roles/upgrader/role.upgrader.level2";
 import { roleDefenderRanged } from "../defender/roles.defender.ranged";
 import { getMainController, getMainRoom } from "./RoomUtils";
+import {roleBuilderLevel2} from "../roles/builder/role.builder.level2";
+import {roleUpgraderLevel3} from "../roles/upgrader/role.upgrader.level3";
 
 
 export function handleGameState() {
@@ -56,14 +58,20 @@ export function creepLoop(name: string) {
     case roleUniversal.roleName:
       roleUniversal.run(creep);
       break;
+    case roleUpgraderLevel3.roleName:
+      roleUpgraderLevel3.run(creep);
+      break;
     case roleUpgraderLevel2.roleName:
       roleUpgraderLevel2.run(creep);
       break;
     case roleUpgraderLevel1.roleName:
       roleUpgraderLevel1.run(creep);
       break;
-    case "builder":
-      roleBuilder.run(creep);
+    case roleBuilderLevel1.roleName:
+      roleBuilderLevel1.run(creep);
+      break;
+    case roleBuilderLevel2.roleName:
+      roleBuilderLevel2.run(creep);
       break;
     case roleCarryLevel1.roleName:
       roleCarryLevel1.run(creep);
@@ -71,10 +79,10 @@ export function creepLoop(name: string) {
     case roleCarryLevel2.roleName:
       roleCarryLevel2.run(creep);
       break;
-    case "miner.level1":
+    case roleMinerLevel2.roleName:
       roleMinerLevel2.run(creep);
       break;
-    case "miner.level2":
+    case roleMinerLevel1.roleName:
       roleMinerLevel1.run(creep);
       break;
     case "defender.ranged":

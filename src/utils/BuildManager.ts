@@ -1,4 +1,4 @@
-import {roleBuilder} from "../roles/builder/role.builder";
+import {roleBuilderLevel1} from "../roles/builder/role.builder.level1";
 import {roleCarryLevel1} from "../roles/carries/role.carry.level1";
 import {roleCarryLevel2} from "../roles/carries/role.carry.level2";
 import {roleMinerLevel2} from "../roles/miner/role.miner.level2";
@@ -13,6 +13,7 @@ import {minersAlive} from "../roles/utils/utils.mine";
 import {getMainController, getMainRoom, getMainSpawn} from "./RoomUtils";
 import {EXTENSIONS_PER_CONTROLLER_LEVEL} from "./utils.rcl";
 import {roleUpgraderLevel3} from "../roles/upgrader/role.upgrader.level3";
+import {roleBuilderLevel2} from "../roles/builder/role.builder.level2";
 
 export function handleCreepCreation() {
   handleCreepBuild();
@@ -25,7 +26,8 @@ export function handleCreepState() {
   roleCarryLevel2.setBuildState();
   roleCarryLevel1.setBuildState();
   roleSupplier.setBuildState();
-  roleBuilder.setBuildState();
+  roleBuilderLevel2.setBuildState();
+  roleBuilderLevel1.setBuildState();
   roleUpgraderLevel3.setBuildState();
   roleUpgraderLevel2.setBuildState();
   roleUpgraderLevel1.setBuildState();
@@ -46,12 +48,14 @@ function handleCreepBuild() {
   if (roleCarryLevel2.handleAutoBuild()) return;
   console.log("Trying to build: carry1");
   if (roleCarryLevel1.handleAutoBuild()) return;
-  console.log("Trying to build: builder");
-  if (roleBuilder.handleAutoBuild()) return;
+  console.log("Trying to build: builder2");
+  if (roleBuilderLevel2.handleAutoBuild()) return;
+  console.log("Trying to build: builder1");
+  if (roleBuilderLevel1.handleAutoBuild()) return;
+  console.log("Trying to build: upgrader3");
+  if (roleUpgraderLevel3.handleAutoBuild()) return;
   console.log("Trying to build: upgrader2");
-  if (roleUpgraderLevel3.handleAutoBuild()) return;
-  console.log("Trying to build: upgrader1");
-  if (roleUpgraderLevel3.handleAutoBuild()) return;
+  if (roleUpgraderLevel2.handleAutoBuild()) return;
   console.log("Trying to build: upgrader1");
   if (roleUpgraderLevel1.handleAutoBuild()) return;
   console.log("Trying to build: defender.ranged");
@@ -125,6 +129,7 @@ export function buildBase(room: Room) {
     Memory.baseBuildStartTick = 0;
     return false;
   }
+  const terrain = Game.map.getRoomTerrain(getMainRoom().name);
   while (Memory.baseBuildQueue.length > 0) {
     if (Memory.baseBuildQueue.length === 1
       && Memory.baseBuildQueue[0].x !== spawnPosition.x
@@ -139,6 +144,7 @@ export function buildBase(room: Room) {
     const currentPositionY = currentPosition.y;
 
     if (
+      terrain.get(currentPositionX, currentPositionY) === TERRAIN_MASK_WALL,
       currentPositionX < 0 ||
       currentPositionX >= roomWidth ||
       currentPositionY < 0 ||
@@ -239,13 +245,13 @@ export function buildBase(room: Room) {
       if (neighbourOne === undefined || neighbourOne.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       // @ts-ignore
-      if (neighbourTwo === undefined || neighbourOne.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourTwo === undefined || neighbourTwo.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       // @ts-ignore
-      if (neighbourThree === undefined || neighbourOne.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourThree === undefined || neighbourThree.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       // @ts-ignore
-      if (neighbourFour === undefined || neighbourOne.lookFor(LOOK_STRUCTURES).length > 0)
+      if (neighbourFour === undefined || neighbourFour.lookFor(LOOK_STRUCTURES).length > 0)
         continue;
       constructionResult = getMainRoom().createConstructionSite(
         currentPositionX,

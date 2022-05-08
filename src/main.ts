@@ -51,11 +51,13 @@ declare global {
 
     // Max Creep Role Amounts
     maxUniversalCreepsAmount: number,
-    maxMinerSmallCreepsAmount: number,
-    maxMinerMediumCreepsAmount: number,
-    maxCarryLevelOneCreepsAmount: number,
-    maxCarryLevelTwoCreepsAmount: number,
-    maxBuilderCreepsAmount: number,
+    maxMinerLevel1CreepsAmount: number,
+    maxMinerLevel2CreepsAmount: number,
+    maxCarryLevel1CreepsAmount: number,
+    maxCarryLevel2CreepsAmount: number,
+    maxCarryLevel3CreepsAmount: number,
+    maxBuilderLevel1CreepsAmount: number,
+    maxBuilderLevel2CreepsAmount: number,
     maxRangedDefenderCreepsAmount: number,
     maxUpgraderLevel1CreepsAmount: number,
     maxUpgraderLevel2CreepsAmount: number,

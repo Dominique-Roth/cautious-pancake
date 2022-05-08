@@ -28,7 +28,7 @@ export function pickupNearestRessource(creep: Creep) {
   if (droppedSources.length > 0) {
     let sourceToPickup;
     for (const item of droppedSources) {
-      if (item.amount > 1000) {
+      if (item.amount > 500) {
         sourceToPickup = item;
         break;
       }

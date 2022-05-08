@@ -8,11 +8,8 @@ export namespace roleDefenderRanged {
 
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
-      case (colonyGoals.controllerLevel3):
-        Memory.maxRangedDefenderCreepsAmount = 3;
-        break;
       case (colonyGoals.controllerLevel4):
-        Memory.maxRangedDefenderCreepsAmount = 4;
+        Memory.maxRangedDefenderCreepsAmount = 3;
         break;
       case (colonyGoals.controllerLevel5):
         Memory.maxRangedDefenderCreepsAmount = 5;
@@ -45,11 +42,7 @@ export namespace roleDefenderRanged {
     // 4 Carry, 5 Move, Work
     return buildCreep(
       "defender.ranged",
-      [
-        ATTACK, ATTACK, ATTACK, ATTACK,
-        CARRY, CARRY,
-        MOVE
-      ]
+      [MOVE,MOVE,CARRY,CARRY,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK,RANGED_ATTACK]
     );
   }
 

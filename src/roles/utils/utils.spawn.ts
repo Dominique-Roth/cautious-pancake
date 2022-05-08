@@ -40,8 +40,8 @@ export function generateCreepName(role: string) {
     case "upgrader.level3":
       name = "u3: ";
       break;
-    case "builder":
-      name = "b: ";
+    case "builder.level1":
+      name = "b1: ";
       break;
     case "carry.level1":
       name = "c1: ";

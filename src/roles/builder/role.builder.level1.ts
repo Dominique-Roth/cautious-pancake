@@ -4,25 +4,25 @@ import { randomMoveWhileWithinCriticalInfrastructure } from "../utils/utils.move
 import { buildCreep } from "../utils/utils.spawn";
 import { upgradeControllerDirectly } from "../utils/utils.upgrade";
 
-export namespace roleBuilder {
+export namespace roleBuilderLevel1 {
   export const roleName = "builder.level1";
 
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel2):
-        Memory.maxBuilderCreepsAmount = 0;
+        Memory.maxBuilderLevel1CreepsAmount = 0;
         break;
       case (colonyGoals.controllerLevel3):
-        Memory.maxBuilderCreepsAmount = 2;
+        Memory.maxBuilderLevel1CreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel4):
-        Memory.maxBuilderCreepsAmount = 4;
+        Memory.maxBuilderLevel1CreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel5):
-        Memory.maxBuilderCreepsAmount = 4;
+        Memory.maxBuilderLevel1CreepsAmount = 4;
         break;
       default:
-        Memory.maxBuilderCreepsAmount = 3;
+        Memory.maxBuilderLevel1CreepsAmount = 3;
         break;
     }
   }
@@ -32,8 +32,8 @@ export namespace roleBuilder {
     if (constructionSites.length == 0)
       return false;
     const builder = _.filter(Game.creeps,
-      (creep) => creep.memory.role == "builder");
-    if (builder.length < Memory.maxBuilderCreepsAmount) {
+      (creep) => creep.memory.role == roleName);
+    if (builder.length < Memory.maxBuilderLevel1CreepsAmount) {
       return build();
     }
     return false;
@@ -42,16 +42,13 @@ export namespace roleBuilder {
   /** start */
   export function build() {
     buildCreep(
-      "builder",
+      roleName,
       [MOVE, MOVE, WORK, CARRY]
     );
   }
 
   export function run(creep: Creep) {
-    if (buildConstructionSites(creep)) {
-      return;
-    }
-    if (upgradeControllerDirectly(creep)) return;
+    if (buildConstructionSites(creep)) return;
     randomMoveWhileWithinCriticalInfrastructure(creep);
   }
 }

@@ -8,16 +8,16 @@ export namespace roleCarryLevel2 {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel4):
-        Memory.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevel2CreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel5):
-        Memory.maxCarryLevelTwoCreepsAmount = 4;
+        Memory.maxCarryLevel2CreepsAmount = 4;
         break;
       case (colonyGoals.controllerLevel6):
-        Memory.maxCarryLevelTwoCreepsAmount = 2;
+        Memory.maxCarryLevel2CreepsAmount = 2;
         break;
       default:
-        Memory.maxCarryLevelTwoCreepsAmount = 0;
+        Memory.maxCarryLevel2CreepsAmount = 0;
         break;
     }
   }
@@ -25,7 +25,7 @@ export namespace roleCarryLevel2 {
   export function handleAutoBuild() {
     const carries = _.filter(Game.creeps,
       (creep) => creep.memory.role == roleName);
-    if (carries.length < Memory.maxCarryLevelTwoCreepsAmount && minersAlive()) {
+    if (carries.length < Memory.maxCarryLevel2CreepsAmount && minersAlive()) {
       return build();
     }
     return false;
@@ -35,10 +35,7 @@ export namespace roleCarryLevel2 {
     // 4 Carry, 5 Move, Work
     return buildCreep(
       roleName,
-      [
-        CARRY, CARRY, CARRY, CARRY, CARRY,
-        MOVE, MOVE, MOVE, MOVE, MOVE
-      ]
+      [MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY]
     );
   }
 

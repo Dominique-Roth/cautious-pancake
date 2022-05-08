@@ -7,29 +7,29 @@ export namespace roleMinerLevel1 {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel2): {
-        Memory.maxMinerSmallCreepsAmount = 2;
+        Memory.maxMinerLevel1CreepsAmount = 2;
         break;
       }
       case (colonyGoals.controllerLevel3):
-        Memory.maxMinerSmallCreepsAmount = 4;
+        Memory.maxMinerLevel1CreepsAmount = 1;
         break;
       case (colonyGoals.controllerLevel4):
-        Memory.maxMinerSmallCreepsAmount = 0;
+        Memory.maxMinerLevel1CreepsAmount = 0;
         break;
       case colonyGoals.controllerLevel5:
-        Memory.maxMinerSmallCreepsAmount = 0;
+        Memory.maxMinerLevel1CreepsAmount = 0;
         break;
       case colonyGoals.controllerLevel6:
-        Memory.maxMinerSmallCreepsAmount = 0;
+        Memory.maxMinerLevel1CreepsAmount = 0;
         break;
       case colonyGoals.controllerLevel7:
-        Memory.maxMinerSmallCreepsAmount = 0;
+        Memory.maxMinerLevel1CreepsAmount = 0;
         break;
       case colonyGoals.controllerLevel8:
-        Memory.maxMinerSmallCreepsAmount = 0;
+        Memory.maxMinerLevel1CreepsAmount = 0;
         break;
       default:
-        Memory.maxMinerSmallCreepsAmount = 6;
+        Memory.maxMinerLevel1CreepsAmount = 6;
         break;
     }
   }
@@ -39,7 +39,7 @@ export namespace roleMinerLevel1 {
       return build();
     const miners = _.filter(Game.creeps,
       (creep) => creep.memory.role == roleName);
-    if (miners.length < Memory.maxMinerSmallCreepsAmount) {
+    if (miners.length < Memory.maxMinerLevel1CreepsAmount) {
       return build();
     }
     return false;

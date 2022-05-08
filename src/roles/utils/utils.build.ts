@@ -15,21 +15,20 @@ export function buildConstructionSites(creep: Creep) {
 
   if (creep.memory.building) {
     if (targets.length > 0) {
-      if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+      if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
         creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffffff" } });
       }
       return true;
     }
   } else {
-    const droppedSources = creep.room.find(FIND_DROPPED_RESOURCES);
     if (minersAlive()) {
-      if (!pickupNearestRessource(creep)
-        && creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
+      if (!pickupNearestRessource(creep) && creep.store.getUsedCapacity(RESOURCE_ENERGY) > 0) {
         creep.memory.building = true;
       }
     } else {
       mineNextEnergyResource(creep);
     }
+    return true;
   }
   return false;
 }

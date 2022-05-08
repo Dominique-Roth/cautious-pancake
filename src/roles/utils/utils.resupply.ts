@@ -32,9 +32,10 @@ export function resupplyStructures(creep: Creep) {
   if (targets.length === 0 || creep.store[RESOURCE_ENERGY] === 0)
     creep.memory.working = false;
   if (creep.memory.working) {
-    const transfer = creep.transfer(targets[0], RESOURCE_ENERGY);
+    const target = creep.pos.findClosestByRange(targets) as AnyStructure;
+    const transfer = creep.transfer(target, RESOURCE_ENERGY);
     if (transfer === ERR_NOT_IN_RANGE) {
-      creep.moveTo(targets[0], {visualizePathStyle: {stroke: "#ffffff"}});
+      creep.moveTo(target, {visualizePathStyle: {stroke: "#ffffff"}});
     }
     return true;
   } else {

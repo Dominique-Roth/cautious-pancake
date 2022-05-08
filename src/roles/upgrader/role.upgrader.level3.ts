@@ -31,7 +31,7 @@ export namespace roleUpgraderLevel3 {
 
   export function handleAutoBuild(): boolean {
     const universals = _.filter(Game.creeps, creep => creep.memory.role === roleName);
-    if (universals.length < Memory.maxUpgraderLevel2CreepsAmount) {
+    if (universals.length < Memory.maxUpgraderLevel3CreepsAmount) {
       return build();
     }
     return false;

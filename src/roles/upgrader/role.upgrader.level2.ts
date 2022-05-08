@@ -1,6 +1,6 @@
-import {buildCreep} from "../utils/utils.spawn";
-import {upgradeControllerDirectly} from "../utils/utils.upgrade";
-import {buildersAlive} from "../utils/utils.build";
+import { buildCreep } from "../utils/utils.spawn";
+import { upgradeControllerDirectly } from "../utils/utils.upgrade";
+import { buildersAlive } from "../utils/utils.build";
 
 export namespace roleUpgraderLevel2 {
   export const roleName = "upgrader.level2";
@@ -9,7 +9,7 @@ export namespace roleUpgraderLevel2 {
     switch (Memory.currentColonyGoal) {
       case colonyGoals.controllerLevel4:
         if (buildersAlive()) Memory.maxUpgraderLevel2CreepsAmount = 2;
-        else Memory.maxUpgraderLevel2CreepsAmount = 8;
+        else Memory.maxUpgraderLevel2CreepsAmount = 6;
         break;
       case colonyGoals.controllerLevel5:
         if (buildersAlive()) Memory.maxUpgraderLevel2CreepsAmount = 2;
@@ -31,7 +31,7 @@ export namespace roleUpgraderLevel2 {
 
   export function build(): boolean {
     // 4 Carry, 5 Move, Work
-    return buildCreep(roleName, [CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, WORK]);
+    return buildCreep(roleName, [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, WORK, WORK, WORK]);
   }
 
   /** run
