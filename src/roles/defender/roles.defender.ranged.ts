@@ -9,19 +9,19 @@ export namespace roleDefenderRanged {
   export function setBuildState() {
     switch (Memory.currentColonyGoal) {
       case (colonyGoals.controllerLevel4):
-        Memory.maxRangedDefenderCreepsAmount = 3;
+        Memory.maxRangedDefenderCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel5):
-        Memory.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel6):
-        Memory.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel7):
-        Memory.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 2;
         break;
       case (colonyGoals.controllerLevel8):
-        Memory.maxRangedDefenderCreepsAmount = 5;
+        Memory.maxRangedDefenderCreepsAmount = 2;
         break;
       default:
         Memory.maxRangedDefenderCreepsAmount = 0;
